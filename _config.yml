@@ -27,6 +27,9 @@ url: "https://rustylabs.me" # the base hostname & protocol for your site, e.g. h
 facebook_username: jekyllrb
 github_username:  UnicornRidingUnicorn
 repository: UnicornRidingUnicorn/UnicornRidingUnicorn.github.io
+author: UnicornRidingUnicorn
+show_downloads: false
+google_analytics
 
 # Build settings
 # theme: minima
