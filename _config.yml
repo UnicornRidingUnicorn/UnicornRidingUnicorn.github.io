@@ -38,8 +38,6 @@ plugins:
   - jekyll-feed
   - jekyll-remote-theme # add this line to the plugins list if you already have one
 
-github:
-  is_project_page: false
 
 # Exclude from processing.
 # The following items will not be processed, by default.
