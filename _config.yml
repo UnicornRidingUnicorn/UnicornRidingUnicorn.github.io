@@ -29,7 +29,7 @@ github_username:  UnicornRidingUnicorn
 repository: UnicornRidingUnicorn/UnicornRidingUnicorn.github.io
 author: UnicornRidingUnicorn
 show_downloads: false
-google_analytics
+google_analytics:
 
 # Build settings
 # theme: minima
