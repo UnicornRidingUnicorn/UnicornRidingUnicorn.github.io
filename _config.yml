@@ -26,6 +26,7 @@ baseurl: "unicornridingunicorn.github.io" # the subpath of your site, e.g. /blog
 url: "https://rustylabs.me" # the base hostname & protocol for your site, e.g. http://example.com
 facebook_username: jekyllrb
 github_username:  UnicornRidingUnicorn
+repository: UnicornRidingUnicorn/UnicornRidingUnicorn.github.io
 
 # Build settings
 # theme: minima
