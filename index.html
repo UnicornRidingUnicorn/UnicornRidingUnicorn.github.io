@@ -1,43 +1,216 @@
----
-layout: default
-title: My Blog
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rusty Lockett</title>
+<meta name="description" content="Rusty Lockett — contact center platform implementation, Cincinnati, Ohio.">
 
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      {{ post.excerpt }}
-    </li>
-  {% endfor %}
-</ul>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400..600&display=swap" rel="stylesheet">
 
-<!-- This loops through the paginated posts -->
-{% for post in paginator.posts %}
-  <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-  <p class="author">
-    <span class="date">{{ post.date }}</span>
+<style>
+  :root {
+    --field:    #EAE7E1;
+    --ink:      #17191C;
+    --ink-soft: #565A61;
+    --line:     #CFCAC2;
+    --jack:     #2F7A6B;
+
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body:    "Source Serif 4", Georgia, serif;
+    --mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--field);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(3rem, 12vh, 8rem) 1.5rem 4rem;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 1.25rem;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-variation-settings: "wdth" 118, "wght" 750;
+    font-size: clamp(2.6rem, 9vw, 4.75rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem;
+  }
+
+  .lede {
+    font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+    line-height: 1.5;
+    max-width: 34rem;
+    margin: 0 0 3.5rem;
+  }
+
+  .lede em { font-style: italic; }
+
+  /* ---- port strip: the link list ---- */
+
+  .ports {
+    border-top: 1px solid var(--line);
+    margin: 0 0 3.5rem;
+  }
+
+  .port {
+    position: relative;
+    display: grid;
+    grid-template-columns: 11px 6.5rem 1fr;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .jack {
+    width: 11px;
+    height: 11px;
+    border: 1.5px solid var(--ink-soft);
+    background: transparent;
+    transition: background-color 180ms ease, border-color 180ms ease;
+  }
+
+  .port-kind {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .port-name {
+    font-family: var(--display);
+    font-variation-settings: "wdth" 100, "wght" 500;
+    font-size: 1.05rem;
+    transition: color 180ms ease;
+  }
+
+  /* the cable: draws across the row on hover */
+  .port::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 0;
+    background: var(--jack);
+    transition: width 260ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .port:hover::after,
+  .port:focus-visible::after { width: 100%; }
+
+  .port:hover .jack,
+  .port:focus-visible .jack {
+    background: var(--jack);
+    border-color: var(--jack);
+  }
+
+  .port:hover .port-name,
+  .port:focus-visible .port-name { color: var(--jack); }
+
+  .port:focus-visible {
+    outline: 2px solid var(--jack);
+    outline-offset: 4px;
+  }
+
+  footer {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+
+  footer a { color: inherit; }
+
+  @media (max-width: 34rem) {
+    .port { grid-template-columns: 11px 1fr; row-gap: 0.15rem; }
+    .port-kind { grid-column: 2; }
+    .port-name { grid-column: 2; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main>
+
+  <p class="eyebrow">Cincinnati, Ohio</p>
+
+  <h1>Rusty Lockett</h1>
+
+  <p class="lede">
+    I implement contact center platforms for credit unions and financial
+    institutions. Off the clock, a small rack of Raspberry Pis and
+    <em>far</em> more DNS than anyone needs at home.
   </p>
-  <div class="content">
-    {{ post.content }}
-  </div>
-{% endfor %}
 
-<!-- Pagination links -->
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}" class="previous">
-      Previous
+  <nav class="ports" aria-label="Elsewhere">
+
+    <a class="port" href="https://github.com/YOUR-USERNAME">
+      <span class="jack" aria-hidden="true"></span>
+      <span class="port-kind">Code</span>
+      <span class="port-name">GitHub</span>
     </a>
-  {% else %}
-    <span class="previous">Previous</span>
-  {% endif %}
-  <span class="page_number ">
-    Page: {{ paginator.page }} of {{ paginator.total_pages }}
-  </span>
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
-  {% else %}
-    <span class="next ">Next</span>
-  {% endif %}
-</div>
+
+    <a class="port" href="https://www.linkedin.com/in/YOUR-PROFILE">
+      <span class="jack" aria-hidden="true"></span>
+      <span class="port-kind">Work</span>
+      <span class="port-name">LinkedIn</span>
+    </a>
+
+    <a class="port" href="https://rustylabs.me">
+      <span class="jack" aria-hidden="true"></span>
+      <span class="port-kind">Lab</span>
+      <span class="port-name">rustylabs.me</span>
+    </a>
+
+    <a class="port" href="mailto:you@example.com">
+      <span class="jack" aria-hidden="true"></span>
+      <span class="port-kind">Mail</span>
+      <span class="port-name">you@example.com</span>
+    </a>
+
+  </nav>
+
+  <footer>
+    One file. No build step, no framework.<br>
+    Last updated July 2026.
+  </footer>
+
+</main>
+</body>
+</html>
